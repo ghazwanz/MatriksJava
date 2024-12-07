@@ -1,4 +1,3 @@
-package Matriks;
 
 import java.util.Scanner;
 
@@ -24,6 +23,7 @@ public class OperasiMatriks {
             }
         }
         return matriks;
+    }
 
 
     public static void perkalianMatriks() {
