@@ -24,7 +24,7 @@ public class OperasiMatriks {
             }
         }
         return matriks;
-    }
+
 
     public static void perkalianMatriks() {
         int baris1, baris2, kolom1, kolom2;
@@ -62,6 +62,28 @@ public class OperasiMatriks {
         System.out.println("Hasil Matriks 1 * Matriks 2:");
         printMatriks(hasil);
     }
+    public static void TransposeMatriks(){
+        int baris, kolom;
+
+        System.out.print("Masukkan baris matriks: ");
+        baris = sc.nextInt();
+        System.out.print("Masukkan kolom matriks: ");
+        kolom = sc.nextInt();
+
+        double matriks[][] = inputElemen(baris, kolom);
+
+        double Transpose[][] = new double[kolom][baris];
+        for (int i = 0; i < baris; i++) {
+            for (int j = 0; j < kolom; j++) {
+                Transpose[j][i] = matriks[i][j];
+            }
+        }
+        System.out.println("Matriks Asli: ");
+        printMatriks(matriks);
+        System.out.println("Transpose matriks: ");
+        printMatriks(Transpose);
+    }
+
 
     public static void main(String[] args) {
         int menu;
@@ -85,7 +107,7 @@ public class OperasiMatriks {
 
                     break;
                 case 4:
-
+                    TransposeMatriks();
                     break;
                 case 5:
                     System.out.println("Program selesai. Terima kasih.");
