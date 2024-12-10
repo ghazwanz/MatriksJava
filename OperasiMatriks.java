@@ -24,11 +24,80 @@ public class OperasiMatriks {
             }
         }
         return matriks;
-    }    
+    }
+
+    public static double[][] penjumlahan(double[][] matriks1, double[][] matriks2){
+        double[][] hasil = new double[matriks1.length][matriks1[0].length];
+        for (int i = 0; i < hasil.length; i++) {
+            for (int j = 0; j < hasil[i].length; j++) {
+                hasil[i][j] = matriks1[i][j] + matriks2[i][j];
+            }
+        }
+        return hasil;
+    }
+    public static double[][] pengurangan(double[][] matriks1, double[][] matriks2){
+        double[][] hasil = new double[matriks1.length][matriks1[0].length];
+        for (int i = 0; i < hasil.length; i++) {
+            for (int j = 0; j < hasil[i].length; j++) {
+                hasil[i][j] = matriks1[i][j] - matriks2[i][j];
+            }
+        }
+        return hasil;
+    }
+    public static void tambahKurang(int pilihan){
+        int baris,kolom;
+        double[][] matriks1,matriks2,hasil;
+        System.out.println(pilihan == 1?"\nPenjumlahan Matriks":"\nPengurangan Matriks");
+        while (true) {
+            System.out.print("Input baris matriks: ");
+            baris = sc.nextInt();
+            System.out.print("Input kolom matriks: ");
+            kolom = sc.nextInt();
+            if (baris > 0 && kolom > 0) {
+                break;
+            }else
+            System.out.println("baris dan kolom harus lebih besar dari 0.");
+        }
+
+        System.out.println("\nInput elemen matriks ke-1");
+        matriks1 = inputElemen(baris, kolom);
+        System.out.println("\nInput elemen matriks ke-2");
+        matriks2 = inputElemen(baris, kolom);
+        hasil = pilihan==1?penjumlahan(matriks1, matriks2):pengurangan(matriks1, matriks2);
+
+        System.out.println("\nMatriks 1:");
+        printMatriks(matriks1);
+        System.out.println("\nMatriks 2:");
+        printMatriks(matriks2);
+        System.out.println("\nHasil matriks:");
+        printMatriks(hasil);
+    }
+
+    public static void menuTambahKurang() {
+        int pilihMenu;
+        do {
+            System.out.println("\n=== Operasi Penjumlahan dan Pengurangan Matriks ===");
+            System.out.println("1. Penjumlahan Matriks (+)");
+            System.out.println("2. Pengurangan Matriks (-)");
+            System.out.println("3. Kembali ke menu utama");
+            System.out.print("Pilih menu: ");
+            pilihMenu = sc.nextInt();
+            if (pilihMenu >3){
+                System.out.println("Menu tidak tersedia.");
+                continue;
+            }
+            if (pilihMenu==3){
+                System.out.println("Kembali ke menu utama.\n");
+                continue;
+            }
+            tambahKurang(pilihMenu);
+        } while (pilihMenu!=3);
+    }
 
     public static void perkalianMatriks() {
         int baris1, baris2, kolom1, kolom2;
         boolean isNotValid = true;
+        System.out.println("\nPerkalian Matriks");
         do {
             System.out.print("Input baris matriks ke-1: ");
             baris1 = sc.nextInt();
@@ -47,7 +116,7 @@ public class OperasiMatriks {
             if (baris1 > 0 && kolom1 > 0 && baris2 > 0 && kolom2 > 0)
                 isNotValid = false;
             else
-                System.out.println("Baris atau kolom tidak valid.");
+                System.out.println("Baris atau kolom tidak valid.\n");
         } while (isNotValid);
         System.out.println("\nInput elemen matriks ke-1");
         double[][] matriks1 = inputElemen(baris1, kolom1);
@@ -73,9 +142,9 @@ public class OperasiMatriks {
     public static void invers() {
         int inversMenu;
         do {
-            System.out.println("===Daftar Menu===");
-            System.out.println("1. Invers 2x2");
-            System.out.println("2. Invers 3x3");
+            System.out.println("\n=== Menu Invers Matriks ===");
+            System.out.println("1. Invers Matriks 2x2");
+            System.out.println("2. Invers Matriks 3x3");
             System.out.println("3. Kembali");
             System.out.print("Pilih menu: ");
             inversMenu = sc.nextInt();
@@ -84,13 +153,13 @@ public class OperasiMatriks {
                     invers2x2();
                     break;
                 case 2:
-                invers3x3();
+                    invers3x3();
                     break;
                 case 3:
-                    System.out.println("Kembali ke menu utama");
+                    System.out.println("Kembali ke menu utama\n");
                     break;
                 default:
-                    System.out.println("Input tidak valid. Coba lagi.");
+                    System.out.println("Input tidak valid. Coba lagi.\n");
                     break;
             }
         } while (inversMenu != 3);
@@ -104,7 +173,7 @@ public class OperasiMatriks {
         matriks = inputElemen(barisKolom, barisKolom);
         determinan = (matriks[0][0] * matriks[1][1]) - (matriks[0][1] * matriks[1][0]);
         if (determinan == 0) {
-            System.out.println("Determinan tidak boleh kosong");
+            System.out.println("Determinan tidak boleh kosong\n");
             return;
         }
         System.out.println("\nMatriks Awal:");
@@ -116,7 +185,7 @@ public class OperasiMatriks {
                 invers[i][j] /= determinan;
             }
         }
-        System.out.println("Invers Matriks");
+        System.out.println("\nInvers Matriks");
         printMatriks(invers);
     }
 
@@ -130,29 +199,29 @@ public class OperasiMatriks {
         for (int j = 0; j < barisKolom; j++) {
                 determinan = determinan + ((matriks[0][j]*matriks[1][(j+1)%3]*matriks[2][(j+2)%3])-(matriks[0][(j+2)%3]*matriks[1][(j+4)%3]*matriks[2][(j+3)%3]));
         }
-        System.out.println(determinan);
+        if (determinan == 0) {
+            System.out.println("Determinan tidak boleh kosong\n");
+            return;
+        }
         for (int i = 0; i < invers.length; i++) {
             for (int j = 0; j < invers[i].length; j++) {
                 kofaktor[i][j] = (matriks[(i+1)%3][(j+1)%3]*matriks[(i+2)%3][(j+2)%3])-(matriks[(i+1)%3][(j+2)%3]*matriks[(i+2)%3][(j+1)%3]);
+                invers[j][i] = kofaktor[i][j];
+                invers[j][i] /= determinan;
             }
         }
 
-        for (int i = 0; i < invers.length; i++) {
-            for (int j = 0; j < invers[i].length; j++) {
-                invers[i][j] = kofaktor[j][i];
-                invers[i][j] /= determinan;
-            }
-        }
-        System.out.println("Matriks Awal");
+        System.out.println("\nMatriks Awal");
         printMatriks(matriks);
 
-        System.out.println("Matriks Invers");
+        System.out.println("\nMatriks Invers");
         printMatriks(invers);
     } 
 
     public static void TransposeMatriks() {
         int baris, kolom;
         boolean isNotValid = true;
+        System.out.println("\nTranspose Matriks");
         do {
             System.out.print("Masukkan baris matriks: ");
             baris = sc.nextInt();
@@ -191,7 +260,7 @@ public class OperasiMatriks {
             menu = sc.nextInt();
             switch (menu) {
                 case 1:
-                    // tambahKurang();
+                    menuTambahKurang();
                     break;
                 case 2:
                     perkalianMatriks();
